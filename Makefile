@@ -23,3 +23,12 @@ else
 	@echo ">>> Activating new conda environment"
 	source $(CONDA_ROOT)/bin/activate $(PROJECT_NAME)
 endif
+
+remove_env:
+ifeq (True,$(HAS_PYENV))
+	@echo ">>> Detected pyenv, removing pyenv version."
+	pyenv local ${CONDA_VERSION} && rm -rf ~/.pyenv/versions/${CONDA_VERSION}/envs/$(PROJECT_NAME)
+else
+	@echo ">>> Removing conda environemnt"
+	conda remove -n $(PROJECT_NAME) --all
+endif
