@@ -1,4 +1,4 @@
-from src.data.clean_dataset import Imputer
+from src.data.imputer import Imputer
 from src.store.data_store import CsvStore
 from src.utils.config import load_config
 

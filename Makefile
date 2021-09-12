@@ -1,4 +1,4 @@
-.PHONY: setup_env
+.PHONY: setup_env data run test
 PROJECT_NAME=one-ml
 
 ifeq (,$(shell which pyenv))
@@ -32,3 +32,13 @@ else
 	@echo ">>> Removing conda environemnt"
 	conda remove -n $(PROJECT_NAME) --all
 endif
+
+data:
+	@echo "Creating dataset from booking_log and participant_log.."
+	${BINARIES}/python -m src.data.make_dataset
+
+test:
+	@echo "Running all unit tests.."
+	${BINARIES}/nosetests --nologcapture
+
+run: data test

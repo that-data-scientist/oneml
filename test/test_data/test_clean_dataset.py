@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from numpy import NaN
 
-from src.data.clean_dataset import missing_value_percentage, Imputer
+from src.data.imputer import missing_value_percentage, Imputer
 
 
 class TestCleanDataset(unittest.TestCase):
