@@ -32,7 +32,7 @@ class TestCleanDataset(unittest.TestCase):
 
         pd.testing.assert_frame_equal(result_df, test_df)
 
-    def test_handle_missing_values_should_return_same_df_if_no_nan_fount(self):
+    def test_handle_missing_values_should_impute_with_mode_for_categorical(self):
         test_df = pd.DataFrame(
             [
                 {
@@ -51,6 +51,28 @@ class TestCleanDataset(unittest.TestCase):
 
         self.assertEqual(0, result_df.isna().sum().sum())
         np.testing.assert_array_equal(np.array(['value_1', 'value_1']), result_df['key_1'].values)
+
+    def test_handle_missing_values_should_drop_if_na_count_is_less(self):
+        test_df = pd.DataFrame(
+            [
+                {
+                    'key_1': 'value_1',
+                    'key_2': 'value_2'
+                } for _ in range(0, 10)
+            ] +
+            [
+                {
+                    'key_1': 'value_1',
+                    'key_2': NaN
+                }
+            ]
+        )
+
+        self.assertEqual(11, test_df.shape[0])
+
+        result_df = self.imputer.handle_missing_values(test_df)
+        self.assertEqual(0, result_df.isna().sum().sum())
+        self.assertEqual(10, result_df.shape[0])
 
     def test_missing_value_count(self):
         test_df = pd.DataFrame(

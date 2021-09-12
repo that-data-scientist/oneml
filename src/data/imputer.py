@@ -14,9 +14,11 @@ class Imputer():
         if missing_value_pct.sum() == 0:
             return df
 
+        if missing_value_pct.sum() < 0.1:
+            return df.dropna()
+
         for k, v in missing_value_pct.items():
-            if v > 0.1:
-                df[k] = self.mode_imputer.impute(df[k])
+            df[k] = self.mode_imputer.impute(df[k])
 
         return df
 
