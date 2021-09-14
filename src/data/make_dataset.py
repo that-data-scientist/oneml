@@ -13,7 +13,7 @@ def main():
     processed_df = input_df \
         .pipe(imputer.handle_missing_values, config['missing_values_drop_threshold'])
 
-    store.put_processed(project_name=config['project_name'], file_path='dataset.csv', df=processed_df)
+    store.put_processed(project_name=config['project_name'], file_name='dataset.csv', df=processed_df)
 
 
 if __name__ == '__main__':
