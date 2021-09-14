@@ -38,9 +38,23 @@ class Store(metaclass=ABCMeta):
     def get_data(self, project_name: str, file_path: str, **kwargs) -> pd.DataFrame:
         pass
 
+    @abstractmethod
+    def put_data(self, filepath: str, df: pd.DataFrame, **kwargs) -> None:
+        pass
+
+    def put_processed(self, project_name: str, file_path: str, df: pd.DataFrame, **kwargs):
+        file_path = os.path.join(DATA_DIR, project_name, 'processed', file_path)
+        self.put_data(file_path, df, **kwargs)
+
 
 class CsvStore(Store):
     @_check_filepath(".csv")
     def get_data(self, project_name: str, file_path: str, **kwargs) -> pd.DataFrame:
         file_path = os.path.join(DATA_DIR, project_name, 'input', file_path)
         return pd.read_csv(file_path, **kwargs)
+
+    @_check_filepath(".csv")
+    def put_data(self, filepath: str, df: pd.DataFrame, **kwargs) -> None:
+        if not isinstance(df, pd.DataFrame):
+            raise TypeError(f"df must be of type pd.DataFrame, got {type(df)}")
+        df.to_csv(filepath, index=False, **kwargs)
