@@ -8,7 +8,7 @@ def main():
     config = load_config()
     imputer = Imputer()
 
-    input_df = store.get_data(project_name=config['project_name'], file_path=config['input_file_name'])
+    input_df = store.get_raw(project_name=config['project_name'], file_name=config['input_file_name'])
 
     processed_df = input_df \
         .pipe(imputer.handle_missing_values, config['missing_values_drop_threshold'])
