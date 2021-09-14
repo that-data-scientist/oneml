@@ -52,6 +52,29 @@ class TestCleanDataset(unittest.TestCase):
         self.assertEqual(0, result_df.isna().sum().sum())
         np.testing.assert_array_equal(np.array(['value_1', 'value_1']), result_df['key_1'].values)
 
+    def test_handle_missing_values_should_impute_with_mean_for_continuous(self):
+        test_df = pd.DataFrame(
+            [
+                {
+                    'key_1': 1,
+                },
+                {
+                    'key_1': NaN,
+                },
+                {
+                    'key_1': 4,
+                },
+                {
+                    'key_1': 7,
+                }
+            ]
+        )
+
+        result_df = self.imputer.handle_missing_values(test_df)
+
+        self.assertEqual(0, result_df.isna().sum().sum())
+        np.testing.assert_array_equal(np.array([1, 4, 4, 7]), result_df['key_1'].values)
+
     def test_handle_missing_values_should_drop_if_na_count_is_less(self):
         test_df = pd.DataFrame(
             [
