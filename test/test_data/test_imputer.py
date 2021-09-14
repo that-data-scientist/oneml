@@ -28,7 +28,7 @@ class TestCleanDataset(unittest.TestCase):
             ]
         )
 
-        result_df = self.imputer.handle_missing_values(test_df)
+        result_df = self.imputer.handle_missing_values(test_df, 0.1)
 
         pd.testing.assert_frame_equal(result_df, test_df)
 
@@ -47,7 +47,7 @@ class TestCleanDataset(unittest.TestCase):
             ]
         )
 
-        result_df = self.imputer.handle_missing_values(test_df)
+        result_df = self.imputer.handle_missing_values(test_df, 0.1)
 
         self.assertEqual(0, result_df.isna().sum().sum())
         np.testing.assert_array_equal(np.array(['value_1', 'value_1']), result_df['key_1'].values)
@@ -70,7 +70,7 @@ class TestCleanDataset(unittest.TestCase):
             ]
         )
 
-        result_df = self.imputer.handle_missing_values(test_df)
+        result_df = self.imputer.handle_missing_values(test_df, 0.1)
 
         self.assertEqual(0, result_df.isna().sum().sum())
         np.testing.assert_array_equal(np.array([1, 4, 4, 7]), result_df['key_1'].values)
@@ -93,7 +93,7 @@ class TestCleanDataset(unittest.TestCase):
 
         self.assertEqual(11, test_df.shape[0])
 
-        result_df = self.imputer.handle_missing_values(test_df)
+        result_df = self.imputer.handle_missing_values(test_df, 0.1)
         self.assertEqual(0, result_df.isna().sum().sum())
         self.assertEqual(10, result_df.shape[0])
 

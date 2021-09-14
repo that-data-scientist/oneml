@@ -10,10 +10,10 @@ class Imputer():
         self.imputing_strategies = [mode_imputer, mean_imputer]
 
     @log_step
-    def handle_missing_values(self, df: pd.DataFrame) -> pd.DataFrame:
+    def handle_missing_values(self, df: pd.DataFrame, missing_values_drop_threshold) -> pd.DataFrame:
         missing_value_pct = missing_value_percentage(df)
 
-        if missing_value_pct.sum() == 0 or missing_value_pct.sum() < 0.1:
+        if missing_value_pct.sum() == 0 or missing_value_pct.sum() < missing_values_drop_threshold:
             return df.dropna()
 
         for k, v in missing_value_pct.items():

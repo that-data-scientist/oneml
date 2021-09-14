@@ -11,7 +11,7 @@ def main():
     input_df = store.get_data(project_name=config['project_name'], file_path=config['input_file_name'])
 
     processed_df = input_df \
-        .pipe(imputer.handle_missing_values)
+        .pipe(imputer.handle_missing_values, config['missing_values_drop_threshold'])
 
     print(processed_df)
 
