@@ -30,7 +30,7 @@ class TestCleanDataset(unittest.TestCase):
 
         result_df = self.imputer.handle_missing_values(test_df, 0.1)
 
-        pd.testing.assert_frame_equal(result_df, test_df)
+        pd.testing.assert_frame_equal(test_df, result_df)
 
     def test_handle_missing_values_should_impute_with_mode_for_categorical(self):
         test_df = pd.DataFrame(
