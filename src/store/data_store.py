@@ -46,12 +46,12 @@ class Store(metaclass=ABCMeta):
         file_path = os.path.join(DATA_DIR, project_name, 'raw', file_name)
         return self.get_data(file_path, **kwargs)
 
-    def get_processed(self, project_name: str, file_path: str, **kwargs) -> pd.DataFrame:
-        file_path = os.path.join(DATA_DIR, project_name, 'processed', file_path)
+    def get_processed(self, project_name: str, file_name: str, **kwargs) -> pd.DataFrame:
+        file_path = os.path.join(DATA_DIR, project_name, 'processed', file_name)
         return self.get_data(file_path, **kwargs)
 
-    def put_processed(self, project_name: str, file_path: str, df: pd.DataFrame, **kwargs) -> None:
-        file_path = os.path.join(DATA_DIR, project_name, 'processed', file_path)
+    def put_processed(self, project_name: str, file_name: str, df: pd.DataFrame, **kwargs) -> None:
+        file_path = os.path.join(DATA_DIR, project_name, 'processed', file_name)
         self.put_data(file_path, df, **kwargs)
 
 
