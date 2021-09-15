@@ -1,4 +1,7 @@
 project_name = 'example_project'
 input_file_name = 'bike_sharing_daily.csv'
 
+target_variable = "cnt"
+exclude_variables = ["casual", "registered"]
+
 missing_values_drop_threshold = 0.1
