@@ -16,6 +16,7 @@ class RegressionModel(metaclass=ABCMeta):
 
 class MeanModel(RegressionModel):
     def __init__(self):
+        self.name = 'baseline_mean'
         self.mean_value = None
 
     def train(self, df: pd.DataFrame, target_variable: str) -> None:

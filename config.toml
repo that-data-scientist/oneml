@@ -3,5 +3,6 @@ input_file_name = 'bike_sharing_daily.csv'
 
 target_variable = "cnt"
 exclude_variables = ["casual", "registered"]
+test_size = 0.2
 
 missing_values_drop_threshold = 0.1
